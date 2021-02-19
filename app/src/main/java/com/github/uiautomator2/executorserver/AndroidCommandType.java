@@ -1,0 +1,1 @@
+package com.github.uiautomator2.executorserver;/** * Enumeration for all the command types. * */public enum AndroidCommandType {    ACTION, SHUTDOWN}

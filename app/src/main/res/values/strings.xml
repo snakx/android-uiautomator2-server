@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UIA2</string>
+    <string name="accessibility_service_label">UIA2</string>
+    <string name="service_description">UIAutomator2 Server Accessibility Service</string>
+</resources>

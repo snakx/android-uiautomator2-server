@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UIA2"
+		android:layout_marginTop="10dip"
+		android:textStyle="bold"
+		android:textSize="18sp"
+		android:layout_marginLeft="15dp"/>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_alignTop="@id/header"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="30dip"
+        android:text="Server starten"
+		android:textAllCaps="false"
+        android:onClick="start" />
+		
+	<Button
+        android:id="@+id/stop"
+		android:layout_toRightOf="@id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_alignTop="@id/header"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="30dip"
+        android:text="Server stoppen"
+		android:textAllCaps="false"
+        android:onClick="stop" />
+		
+	<TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+		android:layout_alignTop="@id/start"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="60dip"/>
+		
+	<TextView
+        android:id="@+id/service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service"
+		android:layout_alignTop="@id/start"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="60dip"
+		android:layout_toRightOf="@id/status"/>
+		
+	<TextView
+        android:id="@+id/inet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adresse:"
+		android:layout_alignTop="@id/status"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="40dip"/>
+		
+	<TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0.0.0"
+		android:textColor="#1E90FF"
+		android:layout_alignTop="@id/status"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="40dip"
+		android:layout_toRightOf="@id/inet"/>
+
+	<TextView
+		android:id="@+id/actions"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Aktionen:"
+		android:textStyle="bold"
+		android:textSize="18sp"
+		android:layout_alignTop="@id/address"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="40dip"/>
+
+	<Button
+		android:id="@+id/dev"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/actions"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="30dip"
+		android:text="Entwickleroptionen"
+		android:textAllCaps="false"
+		android:onClick="dev" />
+
+	<Button
+		android:id="@+id/accessibility"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/dev"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="50dip"
+		android:text="Barrierefreiheit"
+		android:textAllCaps="false"
+		android:onClick="access" />
+
+	<Button
+		android:id="@+id/wifi"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/accessibility"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="50dip"
+		android:text="WiFi Einstellungen"
+		android:textAllCaps="false"
+		android:onClick="wifi" />
+
+	<Button
+		android:id="@+id/close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/wifi"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="50dip"
+		android:text="Beenden"
+		android:textAllCaps="false"
+		android:onClick="close" />
+
+	<TextView
+		android:id="@+id/dbgi"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:singleLine="false"
+		android:text="Debug"
+		android:layout_alignTop="@id/close"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="90dip"/>
+
+</RelativeLayout>
