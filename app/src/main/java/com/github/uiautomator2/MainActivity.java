@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
         tv_dbginf = findViewById(R.id.dbgi);
 
         if (isUIAutomationService(AndroidServerService.class)) {
-            tv_service.setText("Service is running");
+            tv_service.setText("snakx-agent is running");
         }
         else {
-            tv_service.setText("Service is not running");
+            tv_service.setText("snakx-agent is not running");
         }
 
         try {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public void start(View view) {
         InetAddress inetAddress = NetUtils.getLocalIPAddress();
         if (inetAddress != null){
-            tv_service.setText("Service is running");
+            tv_service.setText("snakx-agent is running");
             tv_address.setText("http://" + inetAddress.getHostAddress() + ":7771");
         }else {
             tv_address.setText("Not obtained address");
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public void stop(View view) {
         try {
             stopService(new Intent(MainActivity.this, AndroidServerService.class));
-            tv_service.setText("Service is not running");
+            tv_service.setText("snakx-agent is not running");
         } catch (Exception e) {
             e.printStackTrace();
             return;
