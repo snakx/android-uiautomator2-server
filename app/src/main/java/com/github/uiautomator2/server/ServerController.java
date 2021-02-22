@@ -38,7 +38,7 @@ public class ServerController {
     /* Routes */
 
     @ResponseBody
-    @PostMapping("/")
+    @PostMapping("/json0")
     AndroidCommandResult main(@RequestBody String body) {
         String errMsg = null;
         try {
