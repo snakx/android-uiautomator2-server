@@ -3,6 +3,8 @@ plugins {
 }
 
 android {
+    testBuildType "release"
+
     signingConfigs {
         release {
             keyAlias 'uiautomator2'
