@@ -10,6 +10,12 @@ android {
             storeFile file('../release.jks')
             storePassword 'uiautomator2'
         }
+        debug {
+            keyAlias 'uiautomator2'
+            keyPassword 'uiautomator2'
+            storeFile file('../debug.jks')
+            storePassword 'uiautomator2'
+        }
     }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
