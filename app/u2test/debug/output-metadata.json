@@ -5,14 +5,14 @@
     "kind": "Directory"
   },
   "applicationId": "com.github.uiautomator2.test",
-  "variantName": "u2testRelease",
+  "variantName": "u2testDebug",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "versionCode": 1,
       "versionName": "0.1.0 Draft 1",
-      "outputFile": "app-u2test-release.apk"
+      "outputFile": "app-u2test-debug.apk"
     }
   ]
 }
