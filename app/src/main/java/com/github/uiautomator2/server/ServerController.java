@@ -37,6 +37,7 @@ public class ServerController {
 
     /* Routes */
 
+    // Json payload
     @ResponseBody
     @PostMapping("/json0")
     AndroidCommandResult main(@RequestBody String body) {
@@ -65,6 +66,7 @@ public class ServerController {
         return null;
     }
 
+    // Stoppe Server
     @ResponseBody
     @PostMapping("/stop")
     String stop(@RequestBody String body) {

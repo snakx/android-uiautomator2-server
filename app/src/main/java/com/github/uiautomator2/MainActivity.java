@@ -138,10 +138,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (!(new CheckingPortTask().execute(port).get())) {
                 Toast.makeText(getApplicationContext(),"This port is busy. Please stop the server and restart the app.", Toast.LENGTH_LONG).show();
+                tv_service.setText("snakx-agent is not running");
                 return;
             }
         } catch (InterruptedException | ExecutionException e) {
-            Toast.makeText(getApplicationContext(),"Some errors in app. Please report an issue to https://github.com/tok99/android-uiautomator2-server", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Some errors in app. Please report an issue to https://github.com/snakx/android-uiautomator2-server", Toast.LENGTH_LONG).show();
+            tv_service.setText("snakx-agent is not running");
             Log.e(TAG, e.toString());
             e.printStackTrace();
             return;

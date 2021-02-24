@@ -1,6 +1,7 @@
 package com.github.uiautomator2.server;
 
 import android.content.Context;
+import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ServerManager {
 
-    private final String TAG = "ServerManager";
+    private final String TAG = "snakx-agent";
 
     private Server mServer;
 
@@ -29,16 +30,20 @@ public class ServerManager {
                     @Override
                     public void onStarted() {
                         // TODO The server started successfully.
+                        ServerStatus.setServer(mServer);
+                        Log.d(TAG, "The server started successfully");
                     }
 
                     @Override
                     public void onStopped() {
                         // TODO The server has stopped.
+                        Log.d(TAG, "The server has stopped");
                     }
 
                     @Override
                     public void onException(Exception e) {
                         // TODO An exception occurred while the server was starting.
+                        Log.d(TAG, "An exception occurred while the server was starting");
                     }
                 })
                 .build();

@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -18,6 +20,9 @@ import androidx.core.app.NotificationCompat;
 import com.github.uiautomator2.MainActivity;
 import com.github.uiautomator2.R;
 import com.github.uiautomator2.server.ServerManager;
+import com.github.uiautomator2.server.ServerStatus;
+import com.github.uiautomator2.utils.Device;
+import com.github.uiautomator2.utils.Logger;
 import com.github.uiautomator2.utils.NetUtils;
 
 import java.net.InetAddress;
@@ -27,6 +32,8 @@ public class AndroidServerService extends Service {
     final String LOG_TAG = "AndroidServerService";
     private int port = 7771;
     private ServerThreadTask serverThreadTask;
+    private static final int NOTIFICATION_ID = 0x1;
+
 
     public void onCreate() {
         super.onCreate();
@@ -53,14 +60,17 @@ public class AndroidServerService extends Service {
             assert manager != null;
             manager.createNotificationChannel(notificationChannel);
         }
-        startForeground(1, new NotificationCompat.Builder(this,
+        startForeground(NOTIFICATION_ID, new NotificationCompat.Builder(this,
                 "com.github.uiautomator2")
                 .setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("UIA2")
                 .setContentText("IP: " + inetAddress.getHostAddress() + ":7771")
-                .setContentIntent(pendingIntent)
+                .setContentIntent(PendingIntent.getActivity(this, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT))
+                .setWhen(System.currentTimeMillis())
                 .build());
+
+        Log.d(LOG_TAG, "snakx-agent started in foreground");
 
         startUIAutomationServer();
         return super.onStartCommand(intent, flags, startId);
@@ -97,10 +107,13 @@ public class AndroidServerService extends Service {
             InetAddress inetAddress = null;
             try {
                 inetAddress = InetAddress.getByName("0.0.0.0");
-                Log.d(LOG_TAG, "onCreate: " + inetAddress.getHostAddress());
+                Log.d(LOG_TAG, "snakx-agent: " + inetAddress.getHostAddress());
                 ServerManager serverManager = new ServerManager(getApplicationContext(), inetAddress, port);
+                ServerStatus.setServerManager(serverManager);
                 serverManager.startServer();
+                Log.d(LOG_TAG, "Start server manager");
             } catch (UnknownHostException | RemoteException e) {
+                Log.d(LOG_TAG, e.toString());
                 e.printStackTrace();
             }
         }
@@ -109,6 +122,7 @@ public class AndroidServerService extends Service {
     class ServerTask extends AsyncTask<Void, Void, Void> {
         private int port = 7771;
         final String LOG_TAG = "AsyncTask";
+        private PowerManager.WakeLock wakeLock;
 
         @Override
         protected void onPreExecute() {
@@ -122,10 +136,12 @@ public class AndroidServerService extends Service {
                 inetAddress = InetAddress.getByName("0.0.0.0");
                 Log.d(LOG_TAG, "onCreate: " + inetAddress.getHostAddress());
                 ServerManager serverManager = new ServerManager(getApplicationContext(), inetAddress, port);
+                ServerStatus.setServerManager(serverManager);
                 serverManager.startServer();
             } catch (UnknownHostException | RemoteException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
     }
