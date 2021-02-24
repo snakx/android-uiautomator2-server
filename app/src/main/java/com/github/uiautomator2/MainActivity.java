@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.github.uiautomator2.server.AndroidServer;
+import com.github.uiautomator2.server.ServerStatus;
 import com.github.uiautomator2.service.AndroidServerService;
 import com.github.uiautomator2.utils.NetUtils;
 
@@ -166,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
     public void stop(View view) {
         try {
             stopService(new Intent(MainActivity.this, AndroidServerService.class));
+            ServerStatus.getServer().shutdown();
+            ServerStatus.getServerManager().stopServer();
             tv_service.setText("snakx-agent is not running");
         } catch (Exception e) {
             e.printStackTrace();
