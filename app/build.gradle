@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    testBuildType "release"
+    testBuildType "debug"
 
     signingConfigs {
         release {
             keyAlias 'uiautomator2'
             keyPassword 'uiautomator2'
-            storeFile file('../release.jks')
+            storeFile file('../debug.jks')
             storePassword 'uiautomator2'
         }
     }
