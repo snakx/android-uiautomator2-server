@@ -26,7 +26,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "0.1.0 Draft 1"
-
+        archivesBaseName = "snakx-uiautomator2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
