@@ -3,13 +3,11 @@ plugins {
 }
 
 android {
-    testBuildType "debug"
-
     signingConfigs {
         release {
             keyAlias 'uiautomator2'
             keyPassword 'uiautomator2'
-            storeFile file('../debug.jks')
+            storeFile file('../release.jks')
             storePassword 'uiautomator2'
         }
     }
@@ -29,7 +27,24 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    flavorDimensions "default"
+    productFlavors {
+        server {
+            applicationId 'com.github.uiautomator2'
+        }
+        u2test {
+            applicationId 'com.github.uiautomator2.test'
         }
     }
     compileOptions {
