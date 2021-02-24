@@ -1,4 +1,4 @@
-package com.github.uiautomator2;
+package com.github.uiautomator2.test;
 
 import android.app.ActivityManager;
 import android.content.Context;
