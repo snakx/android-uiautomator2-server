@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "UIA2";
     private int version = Build.VERSION.SDK_INT;
     private final int port = 7771;
-    private final String _version_ = "0.1.0 Draft 1";
+    private final String _version_ = "0.1.0";
 
     TextView tv_service, tv_address, tv_dbginf;
 
