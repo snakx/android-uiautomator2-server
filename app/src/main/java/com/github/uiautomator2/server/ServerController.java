@@ -43,7 +43,6 @@ public class ServerController {
             {
                 try
                 {
-
                     Main.mContext.stopService(new Intent(Main.mContext, AndroidServerService.class));
                     ServerStatus.getServer().shutdown();
                     ServerStatus.getServerManager().stopServer();

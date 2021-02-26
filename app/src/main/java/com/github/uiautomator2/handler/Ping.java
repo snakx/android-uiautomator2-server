@@ -12,10 +12,13 @@ import org.json.JSONException;
 
 public class Ping extends BaseCommandHandler {
     @Override
-    public AndroidCommandResult execute(AndroidCommand command) throws JSONException {
+    /*public AndroidCommandResult execute(AndroidCommand command) throws JSONException {
         if(Device.getInstance().isOffLine()){
             return getErrorResult("uiautomator is disconnected");
         }
+        return getSuccessResult("pong");
+    }*/
+    public AndroidCommandResult execute(AndroidCommand command) throws JSONException {
         return getSuccessResult("pong");
     }
 }
