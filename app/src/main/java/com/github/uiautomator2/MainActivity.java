@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "UIA2";
     private int version = Build.VERSION.SDK_INT;
-    private final int port = 7771;
+    private final int port = 4726;
     private final String _version_ = "0.1.0";
 
     TextView tv_service, tv_address, tv_dbginf;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             InetAddress inetAddress = NetUtils.getLocalIPAddress();
             if (inetAddress != null){
-                tv_address.setText("http://" + inetAddress.getHostAddress() + ":7771");
+                tv_address.setText("http://" + inetAddress.getHostAddress() + ":4726");
             }else {
                 tv_address.setText("Not obtained inetAddress");
             }
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         InetAddress inetAddress = NetUtils.getLocalIPAddress();
         if (inetAddress != null){
             tv_service.setText("snakx-agent is running");
-            tv_address.setText("http://" + inetAddress.getHostAddress() + ":7771");
+            tv_address.setText("http://" + inetAddress.getHostAddress() + ":4726");
         }else {
             tv_address.setText("Not obtained address");
         }
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Start service
             Intent it1 = new Intent(MainActivity.this, AndroidServerService.class);
-            it1.putExtra("port", 7771);
+            it1.putExtra("port", 4726);
             startService(it1);
         }
         catch (Exception e) {

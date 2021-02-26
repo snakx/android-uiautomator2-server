@@ -1,7 +1,6 @@
 package com.github.uiautomator2.server;
 
 import android.content.Context;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.Log;
 

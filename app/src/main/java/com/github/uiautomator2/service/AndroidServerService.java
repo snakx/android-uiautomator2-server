@@ -30,7 +30,7 @@ import java.net.UnknownHostException;
 
 public class AndroidServerService extends Service {
     final String LOG_TAG = "AndroidServerService";
-    private int port = 7771;
+    private int port = 4726;
     private ServerThreadTask serverThreadTask;
     private static final int NOTIFICATION_ID = 0x1;
 
@@ -47,7 +47,7 @@ public class AndroidServerService extends Service {
         InetAddress inetAddress = NetUtils.getLocalIPAddress();
 
         // ToDo Hardcoded port
-        port = intent.getIntExtra("port", 7771);
+        port = intent.getIntExtra("port", 4726);
         Intent notificationIntent = new Intent(this, MainActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -65,7 +65,7 @@ public class AndroidServerService extends Service {
                 .setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("UIA2")
-                .setContentText("IP: " + inetAddress.getHostAddress() + ":7771")
+                .setContentText("IP: " + inetAddress.getHostAddress() + ":4726")
                 .setContentIntent(PendingIntent.getActivity(this, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT))
                 .setWhen(System.currentTimeMillis())
                 .build());
@@ -120,7 +120,7 @@ public class AndroidServerService extends Service {
     }
 
     class ServerTask extends AsyncTask<Void, Void, Void> {
-        private int port = 7771;
+        private int port = 4726;
         final String LOG_TAG = "AsyncTask";
         private PowerManager.WakeLock wakeLock;
 

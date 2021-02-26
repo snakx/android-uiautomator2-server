@@ -3,7 +3,8 @@ package com.github.uiautomator2.handler;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.support.test.InstrumentationRegistry;
+//import android.support.test.InstrumentationRegistry;
+//import androidx.test.platform.app.InstrumentationRegistry;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import com.github.uiautomator2.executorserver.AndroidCommand;
 import com.github.uiautomator2.executorserver.AndroidCommandResult;
@@ -23,7 +24,7 @@ import java.util.Hashtable;
  * 
  */
 public class Screenshot extends BaseCommandHandler{
-	private File screenshot = new File(InstrumentationRegistry.getTargetContext().getFilesDir(), "screenshot.png");
+	private File screenshot = new File("/data/local/tmp/", "screenshot.png");
 
 	@Override
 	public AndroidCommandResult execute(final AndroidCommand command) {

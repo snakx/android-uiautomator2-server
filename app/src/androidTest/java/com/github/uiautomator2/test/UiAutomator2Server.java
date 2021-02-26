@@ -32,7 +32,7 @@ import java.net.InetAddress;
 @RunWith(AndroidJUnit4.class)
 public class UiAutomator2Server {
     private static ServerInstrumentation serverInstrumentation;
-    private static int port = 7771;
+    private static int port = 4726;
     private Context ctx;
 
     /**
@@ -61,7 +61,7 @@ public class UiAutomator2Server {
                         }
                         // Starte den Server-Service
                         if ((new CheckingPortTask().execute(port).get())) {
-                            it1.putExtra("port", 7771);
+                            it1.putExtra("port", 4726);
                             ctx.startService(it1);
                             Logger.info("Starting Server");
                         }
@@ -74,7 +74,7 @@ public class UiAutomator2Server {
                     while (ServerStatus.getServer().isRunning()) {
                         SystemClock.sleep(500);
                         // Server starten
-                        it1.putExtra("port", 7771);
+                        it1.putExtra("port", 4726);
                         ctx.startService(it1);
                         // CPU wach halten
                         WOAService.wackeUp(ctx);

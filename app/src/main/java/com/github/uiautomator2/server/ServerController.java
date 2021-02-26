@@ -2,9 +2,14 @@ package com.github.uiautomator2.server;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
+//import android.support.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
+import android.support.test.uiautomator.Configurator;
 import android.util.Log;
 
+import com.github.uiautomator2.Main;
+import com.github.uiautomator2.MainActivity;
+import com.github.uiautomator2.common.monitor.UiWatchers2;
 import com.github.uiautomator2.executorserver.AndroidCommandExecutor;
 import com.github.uiautomator2.executorserver.AndroidCommandResult;
 import com.github.uiautomator2.service.AndroidServerService;
@@ -14,45 +19,46 @@ import com.yanzhenjie.andserver.annotation.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
-import fi.iki.elonen.NanoHTTPD;
 
 @Controller
 public class ServerController {
     public final String TAG = "ServerController";
-    private Context ctx;
+    private final AndroidCommandExecutor mAndroidExecServer = new AndroidCommandExecutor();
+    private UiWatchers2 uiWatchers2 = UiWatchers2.getInstance();
 
-    public static HashMap<String, String> JsonObjectToHashMap(JSONObject jsonObj) throws JSONException {
-        HashMap<String, String> data = new HashMap<>();
-        Iterator<String> it = jsonObj.keys();
-        while (it.hasNext()) {
-            String key = it.next();
-            String value = jsonObj.get(key).toString();
-            data.put(key, value);
-        }
-        return data;
+    public ServerController() {
+        Configurator.getInstance().setWaitForIdleTimeout(500);
+        uiWatchers2.start();
     }
 
-    /* Routes */
-
-    // Json payload
     @ResponseBody
-    @PostMapping("/json0")
+    @PostMapping("/")
     String main(@RequestBody String body) {
-        String errMsg = null;
         try {
             JSONObject bd = new JSONObject(body); // Empfangener Payload
-            HashMap<String, String> jbd = JsonObjectToHashMap(bd);
-            JSONObject json = null;
-            for (String tmp : jbd.values()) {
-                json = new JSONObject(tmp);
+
+            // Stop Kommando
+            String cmd = (String)bd.get("cmd");
+            if (cmd.equals("stop"))
+            {
+                try
+                {
+
+                    Main.mContext.stopService(new Intent(Main.mContext, AndroidServerService.class));
+                    ServerStatus.getServer().shutdown();
+                    ServerStatus.getServerManager().stopServer();
+                    Logger.info("Stopping Server");
+                    return returnSuccess("uiautomator2 exit");
+                }
+                catch (Exception e) {
+                    return returnFailure("uiautomator2 failure: " + e.toString());
+                }
             }
-            if (json != null) {
-                Logger.debug(json.toString());
-                AndroidCommandResult result = new AndroidCommandExecutor().execute(json);
-                if(json.getString("action").equalsIgnoreCase("takeScreenshot")){
+
+            if (bd != null) {
+                Log.d(TAG, bd.toString());
+                AndroidCommandResult result = mAndroidExecServer.execute(bd);
+                if(bd.getString("action").equalsIgnoreCase("takeScreenshot")){
                     // ToDo Als response die Bilddatei übergeben
                 }
                 return result.toString();
@@ -64,24 +70,6 @@ public class ServerController {
             Log.e(TAG,  e.getMessage());
         }
         return null;
-    }
-
-    // Stoppe Server
-    @ResponseBody
-    @PostMapping("/stop")
-    String stop(@RequestBody String body) {
-        // Stop Kommando
-        try
-        {
-            ctx = InstrumentationRegistry.getInstrumentation().getTargetContext();
-            Intent it1 = new Intent(ctx, AndroidServerService.class);
-            ctx.stopService(it1);
-            Logger.info("Stopping Server");
-            return returnSuccess("uiautomator2 exit");
-        }
-        catch (Exception e) {
-            return returnFailure("uiautomator2 failure: " + e.toString());
-        }
     }
 
     public String returnSuccess(String data){
