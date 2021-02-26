@@ -40,7 +40,7 @@ public class ServerController {
     // Json payload
     @ResponseBody
     @PostMapping("/json0")
-    AndroidCommandResult main(@RequestBody String body) {
+    String main(@RequestBody String body) {
         String errMsg = null;
         try {
             JSONObject bd = new JSONObject(body); // Empfangener Payload
@@ -55,7 +55,7 @@ public class ServerController {
                 if(json.getString("action").equalsIgnoreCase("takeScreenshot")){
                     // ToDo Als response die Bilddatei übergeben
                 }
-                return result;
+                return result.toString();
             } else {
                 Log.e(TAG, "empty params");
             }
