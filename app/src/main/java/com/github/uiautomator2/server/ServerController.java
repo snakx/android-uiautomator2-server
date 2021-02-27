@@ -57,9 +57,6 @@ public class ServerController {
             if (bd != null) {
                 Log.d(TAG, bd.toString());
                 AndroidCommandResult result = mAndroidExecServer.execute(bd);
-                if(bd.getString("action").equalsIgnoreCase("takeScreenshot")){
-                    // ToDo Als response die Bilddatei übergeben
-                }
                 return result.toString();
             } else {
                 Log.e(TAG, "empty params");
