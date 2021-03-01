@@ -10,7 +10,7 @@ After that you can use for example **[uiautomator2](https://github.com/snakx/uia
 
 # Example
 
-```
+```python
 # Unit test
 
 import uiautomator2 as ui
