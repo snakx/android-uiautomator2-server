@@ -1,3 +1,75 @@
 # Android UIAutomator2 Server
 
 Android framweork which let you perform interactions on user apps and system apps remotly.
+
+# How it works
+
+Start **[x86-uiautomator2-server](https://github.com/snakx/x86-uiautomator2-server)** which connects the x86 to the snakx-agent on your phone.
+
+After that you can use for example **[uiautomator2](https://github.com/snakx/uiautomator2)** to perform actions on your phone.
+
+# Example
+
+```
+# Unit test
+
+import uiautomator2 as ui
+import _bridge as b
+import _init as init
+import _pk as p
+import logging
+import json
+from time import sleep
+
+_bridge = b.Bridge()
+snakx_agent = ui.Client()
+
+# Init
+client = _bridge._client()
+download = init._Service()
+
+# Download instrumentation
+download._apk_cache_i()
+
+# Download apk
+download._apk_cache_r()
+
+# Download jar
+download._jar_cache()
+
+# Download vbs
+download._vbs_cache()
+
+# Download bat
+download._bat_cache()
+
+# Devices
+_devices = []
+for device in client:
+    _devices.append(device.serial)
+    logging.debug(device.serial)
+
+# Connect first device
+device = None
+if len(_devices) >= 1:
+    device = _bridge._connect(_devices[0])
+else:
+    pass
+
+# Connect snakx-agent
+if device:
+    snakx_agent.connect()
+
+    sleep(3)
+
+    # Ping
+    ip = _bridge._ip(device)
+    result = snakx_agent.ping(ip)
+    logging.debug(result)
+
+    # Start App
+    ip = _bridge._ip(device)
+    data = {'packageName': 'com.instagram.android', 'mode': 1}
+    result = snakx_agent.startApp(ip, data)
+    logging.debug(result)
+```
